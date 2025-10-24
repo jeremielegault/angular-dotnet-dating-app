@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "LHksR9wX5so=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jeremie.legault\\demo\\DatingApp\\API\\API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jeremie.legault\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.10\\microsoft.aspnetcore.openapi.9.0.10.nupkg.sha512",
+    "C:\\Users\\jeremie.legault\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
