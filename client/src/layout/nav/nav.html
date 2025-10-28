@@ -1,4 +1,4 @@
-<header class="p-3 w-full fixed top-0 z-50 bg-gradient-to-r from-primary to-black">
+<header class="p-3 w-full fixed top-0 z-50 bg-linear-to-r from-primary to-black">
   <div class="flex align-middle items-center px-10 mx-auto gap-6">
     <a class="flex items-center gap-3 max-h-16 text-white border-r-white border-r-2 pr-6">
       <svg
@@ -19,7 +19,7 @@
       <a>Messages</a>
     </nav>
     <div class="flex align-middle ml-auto gap-3">
-      @if (loggedIn()) {
+      @if (accountService.currentUser(); as user) {
       <div class="dropdown dropdown-end">
         <div
           tabindex="0"
@@ -27,7 +27,7 @@
           class="flex items-center text-white text-xl gap-3 cursor-pointer"
         >
           <img src="/user.png" alt="user avatar" class="w-8 h-8 rounded-full" />
-          <span>Bob</span>
+          <span>{{ user.displayName }}</span>
         </div>
         <ul
           tabindex="-1"
