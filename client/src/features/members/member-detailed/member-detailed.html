@@ -35,7 +35,12 @@
     <div class="flex justify-between items-center">
       <h3 class="card-title text-3xl text-primary">{{ title() }}</h3>
       @if(isCurrentUser()) {
-      <button class="btn btn-outline btn-primary">Edit</button>
+      <button
+        class="btn btn-outline btn-primary"
+        (click)="memberService.editMode.set(!memberService.editMode())"
+      >
+        {{ memberService.editMode() ? 'Cancel' : 'Edit' }}
+      </button>
       }
     </div>
     <div class="divider"></div>
