@@ -10,6 +10,7 @@ import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } fro
 export class TextInput implements ControlValueAccessor {
   label = input<string>('')
   type = input<string>('text')
+  maxDate = input<string>('')
 
   // Guarantees that each input uses its own instance NgControl
   constructor(@Self() public ngControl: NgControl) {
