@@ -10,8 +10,7 @@ import { tap } from 'rxjs';
 export class MemberService {
   private http = inject(HttpClient)
   private baseUrl = environment.apiUrl;
-  // Turning editMode true for testing during photo upload form work
-  editMode = signal(true)
+  editMode = signal(false)
   member = signal<Member | null>(null)
 
   getMembers() {
@@ -34,5 +33,8 @@ export class MemberService {
     const formData = new FormData();
     formData.append('file', file)
     return this.http.post<Photo>(this.baseUrl + 'members/add-photo', formData)
+  }
+  setMainPhoto(photo: Photo) {
+    return this.http.put(this.baseUrl + "members/set-main-photo/" + photo.id, {})
   }
 }
