@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RegisterCreds } from '../../../types/user';
 import { AccountService } from '../../../core/services/account-service';
 import { JsonPipe } from '@angular/common';
@@ -21,11 +21,25 @@ export class Register implements OnInit {
   }
   initializeForm() {
     this.registerForm = new FormGroup({
-      email: new FormControl(),
-      displayName: new FormControl(),
-      password: new FormControl(),
-      confirmPassword: new FormControl()
+      email: new FormControl('johndoe@test.com', [Validators.required, Validators.email]),
+      displayName: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required,
+      Validators.minLength(4), Validators.maxLength(8)]),
+      confirmPassword: new FormControl('', [Validators.required, this.matchValues('password')])
+    });
+    this.registerForm.controls['password'].valueChanges.subscribe(() => {
+      this.registerForm.controls['confirmPassword'].updateValueAndValidity()
     })
+  }
+
+  matchValues(matchTo: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const parent = control.parent
+      if (!parent) return null
+
+      const matchValue = parent.get(matchTo)?.value
+      return control.value === matchValue ? null : { passwordMismatch: true }
+    }
   }
   register() {
     console.log('Form Info', this.registerForm.value)
