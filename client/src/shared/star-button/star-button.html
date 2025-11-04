@@ -1,8 +1,4 @@
-<button
-  (click)="onClick($event)"
-  class="absolute top-1 right-1 z-50 cursor-pointer"
-  [disabled]="disabled()"
->
+<button (click)="onClick($event)" class="z-50 cursor-pointer" [disabled]="disabled()">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     [attr.fill]="selected() ? 'currentColor' : 'none'"
