@@ -2,13 +2,11 @@ import { Photo } from './../../../types/member';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MemberService } from '../../../core/services/member-service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 import { ImageUpload } from "../../../shared/image-upload/image-upload";
 
 @Component({
   selector: 'app-member-photos',
-  imports: [AsyncPipe, ImageUpload],
+  imports: [ImageUpload],
   templateUrl: './member-photos.html',
   styleUrl: './member-photos.css',
 })
