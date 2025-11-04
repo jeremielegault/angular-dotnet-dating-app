@@ -10,7 +10,8 @@ import { tap } from 'rxjs';
 export class MemberService {
   private http = inject(HttpClient)
   private baseUrl = environment.apiUrl;
-  editMode = signal(false)
+  // Turning editMode true for testing during photo upload form work
+  editMode = signal(true)
   member = signal<Member | null>(null)
 
   getMembers() {
