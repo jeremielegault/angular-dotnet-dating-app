@@ -59,9 +59,6 @@ Before running the client:
    ```bash
    npm install -g @angular/cli
    ```
-
-````
-
 3. Ensure the .NET 9 API is running locally or remotely
 
 ## Installation
@@ -71,6 +68,7 @@ Before running the client:
    ```bash
    cd client
    ```
+
 2. Install dependencies:
 
    ```bash
@@ -125,8 +123,8 @@ npm test
 TailwindCSS v4 and DaisyUI v5 are integrated for styling.
 Configuration can be found in:
 
-* `tailwind.config.js`
-* `src/styles.css`
+- `tailwind.config.js`
+- `src/styles.css`
 
 ## Deployment
 
@@ -139,6 +137,7 @@ Typical deployment steps:
    ```bash
    npm run build
    ```
+
 2. Copy the contents of `/dist/client` into the server’s `wwwroot` folder
 3. Update API URLs in the environment files if needed
 
@@ -146,8 +145,8 @@ Typical deployment steps:
 
 The app uses Angular environment files for configuration:
 
-* `src/environments/environment.ts` (development)
-* `src/environments/environment.prod.ts` (production)
+- `src/environments/environment.ts` (development)
+- `src/environments/environment.prod.ts` (production)
 
 Update the `apiUrl` or other settings according to your deployment.
 
@@ -159,9 +158,3 @@ Update the `apiUrl` or other settings according to your deployment.
 | `npm run build` | Build for production |
 | `npm run watch` | Build in watch mode  |
 | `npm test`      | Run unit tests       |
-
-## License
-
-This project is private and intended for internal or commercial use.
-All rights reserved.
-````
