@@ -1,59 +1,167 @@
-# Client
+# angular-dotnet-dating-app
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+This is the Angular 20 client for a full-stack web application built with .NET 9 on the backend and Angular on the frontend.  
+It provides a modern, responsive UI using TailwindCSS and DaisyUI.
 
-## Development server
+## Project Overview
 
-To start a local development server, run:
+The client is built using the Angular CLI and follows a modular structure with feature-based components, routing, and service layers.  
+It integrates with a REST API for authentication, messaging, and other application data.
 
-```bash
-ng serve
+## Technologies
+
+Frontend:
+
+- Angular 20
+- TypeScript 5.9
+- TailwindCSS 4.1
+- DaisyUI 5.3
+- RxJS 7.8
+
+Build & Tooling:
+
+- Angular CLI 20
+- Node.js (LTS)
+- Visual Studio Code
+
+Backend (expected companion API):
+
+- ASP.NET Core 9
+- Entity Framework Core
+- SignalR
+
+## Project Structure
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+client/
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   ├── services/
+│   │   ├── models/
+│   │   └── app.module.ts
+│   ├── assets/
+│   └── environments/
+├── tailwind.config.js
+├── angular.json
+├── package.json
+└── tsconfig.json
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Prerequisites
+
+Before running the client:
+
+1. Install Node.js (LTS version)
+2. Install Angular CLI globally:
+   ```bash
+   npm install -g @angular/cli
+   ```
+
+````
+
+3. Ensure the .NET 9 API is running locally or remotely
+
+## Installation
+
+1. Navigate to the client directory:
+
+   ```bash
+   cd client
+   ```
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+## Development Server
+
+Run the Angular development server:
 
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+By default, the app runs at:
 
-To build the project run:
+```
+http://localhost:4200
+```
+
+The server automatically reloads on file changes.
+
+## Build
+
+Build the project for production:
 
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The output will be stored in the `dist/client` directory.
+Use the `--configuration production` flag for optimized builds.
 
-## Running unit tests
+## Watch Mode
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Rebuild the project automatically when files change:
 
 ```bash
-ng test
+npm run watch
 ```
 
-## Running end-to-end tests
+## Testing
 
-For end-to-end (e2e) testing, run:
+Run unit tests via Karma:
 
 ```bash
-ng e2e
+npm test
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Styling
 
-## Additional Resources
+TailwindCSS v4 and DaisyUI v5 are integrated for styling.
+Configuration can be found in:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* `tailwind.config.js`
+* `src/styles.css`
+
+## Deployment
+
+The production build can be deployed to any static hosting service or served directly by the ASP.NET Core backend.
+
+Typical deployment steps:
+
+1. Build the Angular app:
+
+   ```bash
+   npm run build
+   ```
+2. Copy the contents of `/dist/client` into the server’s `wwwroot` folder
+3. Update API URLs in the environment files if needed
+
+## Environment Configuration
+
+The app uses Angular environment files for configuration:
+
+* `src/environments/environment.ts` (development)
+* `src/environments/environment.prod.ts` (production)
+
+Update the `apiUrl` or other settings according to your deployment.
+
+## Common Commands
+
+| Command         | Description          |
+| --------------- | -------------------- |
+| `npm start`     | Run the dev server   |
+| `npm run build` | Build for production |
+| `npm run watch` | Build in watch mode  |
+| `npm test`      | Run unit tests       |
+
+## License
+
+This project is private and intended for internal or commercial use.
+All rights reserved.
+````
