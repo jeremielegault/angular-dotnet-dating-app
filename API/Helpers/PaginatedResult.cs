@@ -5,11 +5,11 @@ namespace API.Helpers;
 
 public class PaginatedResult<T>
 {
-    public PaginationMetaData MetaData { get; set; } = default!;
+    public PaginationMetadata Metadata { get; set; } = default!;
     public List<T> Items { get; set; } = [];
 };
 
-public class PaginationMetaData
+public class PaginationMetadata
 {
     public int CurrentPage { get; set; }
     public int TotalPages { get; set; }
@@ -26,7 +26,7 @@ public class PaginationHelper
         
         return new PaginatedResult<T>
         {
-            MetaData = new PaginationMetaData
+            Metadata = new PaginationMetadata
             {
                 CurrentPage = pageNumber,
                 TotalPages = (int)Math.Ceiling(count / (double)pageSize),
