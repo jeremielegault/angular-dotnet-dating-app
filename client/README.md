@@ -10,7 +10,7 @@ It integrates with a REST API for authentication, messaging, and other applicati
 
 ## Technologies
 
-Frontend:
+**Frontend:**
 
 - Angular 20
 - TypeScript 5.9
@@ -18,13 +18,13 @@ Frontend:
 - DaisyUI 5.3
 - RxJS 7.8
 
-Build & Tooling:
+**Build & Tooling:**
 
 - Angular CLI 20
 - Node.js (LTS)
 - Visual Studio Code
 
-Backend (expected companion API):
+**Backend (expected companion API):**
 
 - ASP.NET Core 9
 - Entity Framework Core
@@ -48,20 +48,57 @@ client/
 ├── package.json
 └── tsconfig.json
 
+API/
+├── Controllers/
+├── Data/
+├── Models/
+├── Program.cs
+└── appsettings.json
+
 ```
 
 ## Prerequisites
 
-Before running the client:
+Before running the app:
 
-1. Install Node.js (LTS version)
-2. Install Angular CLI globally:
+1. Install **Node.js** (LTS version)
+2. Install **Angular CLI** globally:
    ```bash
    npm install -g @angular/cli
    ```
-3. Ensure the .NET 9 API is running locally or remotely
 
-## Installation
+````
+
+3. Install **.NET 9 SDK** (required to run the backend API)
+4. Ensure both the Angular client and .NET API are set up correctly
+
+## Starting the Backend API
+
+1. Navigate to the API project folder:
+
+   ```bash
+   cd API
+   ```
+
+2. Restore .NET dependencies (if not already installed):
+
+   ```bash
+   dotnet restore
+   ```
+
+3. Run the API:
+
+   ```bash
+   dotnet run
+   ```
+
+By default, the API runs at:
+
+```
+https://localhost:5001
+```
+
+## Starting the Angular Client
 
 1. Navigate to the client directory:
 
@@ -75,21 +112,19 @@ Before running the client:
    npm install
    ```
 
-## Development Server
+3. Run the development server:
 
-Run the Angular development server:
+   ```bash
+   npm start
+   ```
 
-```bash
-npm start
-```
-
-By default, the app runs at:
+By default, the client runs at:
 
 ```
 http://localhost:4200
 ```
 
-The server automatically reloads on file changes.
+The app will automatically reload when files change.
 
 ## Build
 
@@ -123,8 +158,8 @@ npm test
 TailwindCSS v4 and DaisyUI v5 are integrated for styling.
 Configuration can be found in:
 
-- `tailwind.config.js`
-- `src/styles.css`
+* `tailwind.config.js`
+* `src/styles.css`
 
 ## Deployment
 
@@ -139,22 +174,25 @@ Typical deployment steps:
    ```
 
 2. Copy the contents of `/dist/client` into the server’s `wwwroot` folder
+
 3. Update API URLs in the environment files if needed
 
 ## Environment Configuration
 
 The app uses Angular environment files for configuration:
 
-- `src/environments/environment.ts` (development)
-- `src/environments/environment.prod.ts` (production)
+* `src/environments/environment.ts` (development)
+* `src/environments/environment.prod.ts` (production)
 
 Update the `apiUrl` or other settings according to your deployment.
 
 ## Common Commands
 
-| Command         | Description          |
-| --------------- | -------------------- |
-| `npm start`     | Run the dev server   |
-| `npm run build` | Build for production |
-| `npm run watch` | Build in watch mode  |
-| `npm test`      | Run unit tests       |
+| Command         | Description                |
+| --------------- | -------------------------- |
+| `dotnet run`    | Start the .NET API         |
+| `npm start`     | Run the Angular dev server |
+| `npm run build` | Build for production       |
+| `npm run watch` | Build in watch mode        |
+| `npm test`      | Run unit tests             |
+````
