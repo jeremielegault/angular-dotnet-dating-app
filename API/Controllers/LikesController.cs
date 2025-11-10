@@ -40,7 +40,8 @@ public class LikesController(ILikesRepository likesRepository) : BaseApiControll
         return Ok(await likesRepository.GetCurrentMemberLikeIds(User.GetMemberId()));
     }
     [HttpGet]
-    public async Task<ActionResult<PaginatedResult<Member>>> GetMemberLikes([FromQuery] LikesParams likesParams)
+    public async Task<ActionResult<PaginatedResult<Member>>> GetMemberLikes(
+        [FromQuery] LikesParams likesParams)
     {
         likesParams.MemberId = User.GetMemberId();
         var members = await likesRepository.GetMemberLikes(likesParams);

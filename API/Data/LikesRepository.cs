@@ -40,20 +40,20 @@ public class LikesRepository(AppDbContext context) : ILikesRepository
         {
             case "liked":
                 result = query
-                .Where(x => x.SourceMemberId == likesParams.MemberId)
-                .Select(x => x.TargetMember);
+                .Where(like => like.SourceMemberId == likesParams.MemberId)
+                .Select(like => like.TargetMember);
                 break;
             case "likedBy":
                 result = query
-                .Where(x => x.TargetMemberId == likesParams.MemberId)
-                .Select(x => x.SourceMember);
+                .Where(like => like.TargetMemberId == likesParams.MemberId)
+                .Select(like => like.SourceMember);
                 break;
             default: // mutual
                 var likeIds = await GetCurrentMemberLikeIds(likesParams.MemberId);
                 result = query.Where(
-                    x => x.TargetMemberId == likesParams.MemberId &&
-                    likeIds.Contains(x.SourceMemberId))
-                .Select(x => x.SourceMember);
+                    like => like.TargetMemberId == likesParams.MemberId &&
+                    likeIds.Contains(like.SourceMemberId))
+                .Select(like => like.SourceMember);
                 break;
         }
 
