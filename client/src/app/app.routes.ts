@@ -1,3 +1,4 @@
+import { Admin } from './../features/admin/admin';
 import { Routes } from '@angular/router';
 import { Home } from '../features/home/home';
 import { MemberList } from '../features/members/member-list/member-list';
@@ -47,6 +48,10 @@ export const routes: Routes = [
       {
         path: 'messages',
         component: Messages
+      },
+      {
+        path: 'admin',
+        component: Admin
       }
     ]
   },
