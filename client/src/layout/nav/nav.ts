@@ -49,4 +49,11 @@ export class Nav implements OnInit {
     this.accountService.logout();
     this.router.navigateByUrl('/');
   }
+
+  isAdmin(): boolean {
+    const user = this.accountService.currentUser();
+    const roles = user?.roles ?? [];
+    return roles.includes('Admin') || roles.includes('Moderator');
+  }
+
 }
