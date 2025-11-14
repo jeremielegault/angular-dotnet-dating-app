@@ -24,7 +24,7 @@ export class PresenceService {
     this.hubConnection.on('UserOnline', email => {
       this.toast.success(email + ' has connected');
     })
-    this.hubConnection.off('UserOffline', email => {
+    this.hubConnection.on('UserOffline', email => {
       this.toast.info(email + ' has disconnected');
     })
   }

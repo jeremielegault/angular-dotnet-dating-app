@@ -15,14 +15,26 @@ using API.SignalR;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
-
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddCors();
+
+// Configure CORS with a named policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); // crucial for credentials like cookies or auth headers
+    });
+});
+
+// Dependency injection for services and repositories
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
@@ -30,8 +42,11 @@ builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<ILikesRepository, LikesRepository>();
 builder.Services.AddScoped<LogUserActivity>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+
+// SignalR
 builder.Services.AddSignalR();
 
+// Identity setup
 builder.Services.AddIdentityCore<AppUser>(opt =>
 {
     opt.Password.RequireNonAlphanumeric = false;
@@ -40,11 +55,13 @@ builder.Services.AddIdentityCore<AppUser>(opt =>
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<AppDbContext>();
 
+// JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
     var tokenKey = builder.Configuration["TokenKey"]
-    ?? throw new Exception("Token key not found - Pogram.cs");
+        ?? throw new Exception("Token key not found - Program.cs");
+
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
@@ -53,6 +70,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidateAudience = false
     };
 
+    // Allow JWT from query string for SignalR
     options.Events = new JwtBearerEvents
     {
         OnMessageReceived = context =>
@@ -67,24 +85,32 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         }
     };
 });
+
+// Authorization policies
 builder.Services.AddAuthorizationBuilder()
-.AddPolicy("RequiredAdminRole", policy => policy.RequireRole("Admin"))
-.AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"))
-.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin", "Moderator"));
+    .AddPolicy("RequiredAdminRole", policy => policy.RequireRole("Admin"))
+    .AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"))
+    .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin", "Moderator"));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware pipeline
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "https://localhost:4200"));
+
+// Apply CORS BEFORE authentication
+app.UseCors("CorsPolicy");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Map controllers and SignalR hubs
 app.MapControllers();
-app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<PresenceHub>("/hubs/presence");
 
+// Seed database
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
+
 try
 {
     var context = services.GetRequiredService<AppDbContext>();
